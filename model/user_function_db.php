@@ -29,7 +29,7 @@
 		global $conn;
 		$token = uniqid();
 		$date = new DateTime();
-		$date->setDate(2019, 2, 3 + DAYS);
+		$date->setDate(2019, 2, 3 + DAYS); // ERROR! chilinum dnel esorvany menak oryin gumares DAYS
 		$expDate = $date->format('Y-m-d G:i:s');
 		// echo $date->format('Y-m-d G:i:s');
 		$query = "INSERT INTO tbl_tokens (user_id, token, expDate) VALUES ('$user_id', '$token', '$expDate')";
@@ -68,5 +68,10 @@
 		$res = mysqli_query($conn,$query);
 		if (!$res)die(mysqli_error($conn));
 		return mysqli_fetch_all($res,MYSQLI_ASSOC)[0]['user_login'];
+	}
+
+	function removeToken ($user_id, $token) {
+		global $conn;
+		// 
 	}
 ?>

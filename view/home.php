@@ -1,9 +1,12 @@
 <?php
+	session_start();
 	include '../model/user_function_db.php';
 	if ($_COOKIE['user_token']) {
 		$result = checkToken($_COOKIE['user_token']);
+		$user_id = $result['user_id'];
 		if ($result['isSuccess'] == 1) {
 			$user_login = getUser($result['user_id']);
+			$_SESSION['user_id'] = $user_id;
 		} else {
 			header('Location: login.php');
 		}
