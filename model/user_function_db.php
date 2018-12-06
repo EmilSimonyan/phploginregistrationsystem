@@ -29,9 +29,9 @@
 		global $conn;
 		$token = uniqid();
 		$date = new DateTime();
-		$date->setDate(2019, 2, 3 + DAYS); // ERROR! chilinum dnel esorvany menak oryin gumares DAYS
+		$getCurrentDate = getdate();
+		$date->setDate($getCurrentDate['year'], date('m'), date('d') + DAYS);
 		$expDate = $date->format('Y-m-d G:i:s');
-		// echo $date->format('Y-m-d G:i:s');
 		$query = "INSERT INTO tbl_tokens (user_id, token, expDate) VALUES ('$user_id', '$token', '$expDate')";
 		$res = mysqli_query($conn, $query);
 		if (!$res) {
@@ -72,6 +72,9 @@
 
 	function removeToken ($user_id, $token) {
 		global $conn;
-		// 
+		$query = "DELETE FROM `tbl_tokens` WHERE user_id = '$user_id' AND token = '$token'";
+		$res = mysqli_query($conn,$query);
+		if (!$res)die(mysqli_error($conn));
+		return 1;
 	}
 ?>
